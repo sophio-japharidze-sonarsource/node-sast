@@ -28,6 +28,7 @@ app.post("/", (req, res) => {
   const directory = path.join(__dirname, dir);
   fs.access(directory)
     .then(async () => {
+      const i = 0;
       const result = await fs.readdir(directory);
       res.json({ files: result });
     })

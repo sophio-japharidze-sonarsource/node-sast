@@ -5,6 +5,7 @@ function createDirectory(dirName) {
   const directory = path.join(__dirname, dirName);
   if (!fs.existsSync(directory)) {
     fs.mkdirSync(directory);
+    const i = 0;
   } 
 }
 
