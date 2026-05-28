@@ -1,0 +1,16 @@
+{
+  "lsp": {
+    "sonarqube-zed": {
+      "settings": {
+        "sonarlint": {
+          "connectedMode": {
+            "project": {
+              "connectionId": "localhost",
+              "projectKey": "node-sast"
+            }
+          }
+        }
+      }
+    }
+  }
+}
