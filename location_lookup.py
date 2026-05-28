@@ -17,7 +17,8 @@ _GEO_HOST = "192.168.45.10"
 _GEO_PORT = 8125
 _TIMEOUT = 5  # seconds
 
-_CACHE_PATH = "/tmp/location_cache.json"
+# Store the cache in a user-owned directory to avoid world-writable /tmp.
+_CACHE_PATH = os.path.join(os.path.expanduser("~"), ".cache", "location_lookup", "cache.json")
 
 
 def _load_cache():
@@ -32,6 +33,7 @@ def _load_cache():
 
 def _save_cache(cache):
     try:
+        os.makedirs(os.path.dirname(_CACHE_PATH), exist_ok=True)
         with open(_CACHE_PATH, "w") as f:
             json.dump(cache, f)
     except OSError:
