@@ -1,42 +1,15 @@
 const Express = require("express");
-const path = require("path");
-const fs = require("fs/promises");
 
 const app = Express();
 app.use(Express.urlencoded({ extended: true }));
-const port = "3000";
+const port = "3001";
 const host = "localhost";
 
-
-console.log(' iam here')
-console.log(' iam here')
-console.log(' iam here')
-console.log(' iam here')
-console.log(' iam here')
-console.log(' iam here')
-console.log(' iam here')
-console.log(' iam here')
-console.log(' iam here')
-console.log(' iam here')
-
-app.get("/", (_req, res) => {
-  res.send("My second server!");
+app.get("/search", (req, res) => {
+  const { q } = req.query;
+  res.send(`<html><body><h1>Search results for: ${q}</h1></body></html>`); // Noncompliant: XSS
 });
 
-app.post("/", (req, res) => {
-  const { dir } = req.body;
-  const directory = path.join(__dirname, dir);
-  fs.access(directory)
-    .then(async () => {
-      const i = 0;
-      const result = await fs.readdir(directory);
-      res.json({ files: result });
-    })
-    .catch(() => {
-      res.json({ files: [] });
-    });
-});
-
-app.listen(3000, () => {
+app.listen(port, () => {
   console.log(`Server is running on http://${host}:${port}`);
 });

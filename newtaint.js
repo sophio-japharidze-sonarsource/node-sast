@@ -1,41 +1,16 @@
 const Express = require("express");
-const path = require("path");
-const fs = require("fs/promises");
 
 const app = Express();
 app.use(Express.urlencoded({ extended: true }));
-const port = "3000";
+const port = "3002";
 const host = "localhost";
 
-
-console.log(' iam here')
-console.log(' iam here')
-console.log(' iam here')
-console.log(' iam here')
-console.log(' iam here')
-console.log(' iam here')
-console.log(' iam here')
-console.log(' iam here')
-console.log(' iam here')
-console.log(' iam here')
-
-app.get("/", (_req, res) => {
-  res.send("My second server!");
+app.post("/calculate", (req, res) => {
+  const { expression } = req.body;
+  const result = eval(expression); // Noncompliant: eval with user input
+  res.json({ result });
 });
 
-app.post("/", (req, res) => {
-  const { dir } = req.body;
-  const directory = path.join(__dirname, dir);
-  fs.access(directory)
-    .then(async () => {
-      const result = await fs.readdir(directory);
-      res.json({ files: result });
-    })
-    .catch(() => {
-      res.json({ files: [] });
-    });
-});
-
-app.listen(3000, () => {
+app.listen(port, () => {
   console.log(`Server is running on http://${host}:${port}`);
 });
